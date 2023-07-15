@@ -11,6 +11,7 @@ const VolumeCommand:SlashInteraction = {
             .setDescription("Set the volume between 0 and 1 (example 0.5)")),
 
     requireVc:true,
+    ownerOnly:false,
 
     run:async(ctx:ChatInputCommandInteraction, client:bot) => {
         if (!ctx.inCachedGuild() || ctx.member.voice.channel.type !== ChannelType.GuildVoice || ctx.channel.type !== ChannelType.GuildText) return;

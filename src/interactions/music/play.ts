@@ -25,6 +25,7 @@ const PlayCommand:SlashInteraction = {
                 {name:"Skip current song and play now", value:"PLAYSKIP"}
             )),
     requireVc:true,
+    ownerOnly:false,
 
     run:async (ctx:ChatInputCommandInteraction, client:bot) => {
         if (!ctx.inCachedGuild() || ctx.member.voice.channel.type !== ChannelType.GuildVoice || ctx.channel.type !== ChannelType.GuildText) return;

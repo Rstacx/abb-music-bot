@@ -8,6 +8,7 @@ const QueueCommand:SlashInteraction = {
         .setDescription("View the current queue"),
 
     requireVc:true,
+    ownerOnly:false,
 
     run:async(ctx:ChatInputCommandInteraction, client:bot) => {
         if (!ctx.inCachedGuild() || ctx.member.voice.channel.type !== ChannelType.GuildVoice || ctx.channel.type !== ChannelType.GuildText) return;
@@ -25,7 +26,7 @@ const QueueCommand:SlashInteraction = {
         };
 
         const embed = new EmbedBuilder()
-            .setColor("White")
+            .setColor("Blurple")
             .setAuthor({name:`🎵 • #${ctx.member.voice.channel.name} queue`})
             .setDescription(`__Now Playing__\n**[${nowPlaying.video.title}](${nowPlaying.video.url})**\n**Requested by:** ${nowPlaying.user}\n**Duration:** \`${nowPlaying.video.durationRaw}\`${queue.length >= 1 ? '\n\n__Coming Up__' : ''}`)
             .setThumbnail(nowPlaying.video.thumbnails[0].url || null);

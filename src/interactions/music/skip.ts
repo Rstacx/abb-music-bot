@@ -8,6 +8,7 @@ const SkipCommand:SlashInteraction = {
         .setDescription("Skip the currently playing song"),
 
     requireVc:true,
+    ownerOnly:false,
 
     run:async(ctx:ChatInputCommandInteraction, client:bot) => {
         if (!ctx.inCachedGuild() || ctx.member.voice.channel.type !== ChannelType.GuildVoice || ctx.channel.type !== ChannelType.GuildText) return;

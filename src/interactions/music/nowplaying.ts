@@ -8,6 +8,7 @@ const NowPlayingCommand:SlashInteraction = {
         .setDescription("View the currently playing song"),
 
     requireVc:true,
+    ownerOnly:false,
 
     run:async(ctx:ChatInputCommandInteraction, client:bot) => {
         if (!ctx.inCachedGuild() || ctx.member.voice.channel.type !== ChannelType.GuildVoice || ctx.channel.type !== ChannelType.GuildText) return;
@@ -24,7 +25,7 @@ const NowPlayingCommand:SlashInteraction = {
             const duration = connection.getDuration();
             const loopTrack = connection.getLoopTrack();
             const embed = new EmbedBuilder()
-                .setColor("White")
+                .setColor("Blurple")
                 .setAuthor({name:`🎵 • Now Playing`})
                 .setDescription(`**[${song.video.title}](${song.video.url})**\n**Requested by:** ${song.user}\n**Duration:** \`${duration.playback}\`/\`${duration.total}\``)
                 .setThumbnail(song.video.thumbnails[0]?.url)

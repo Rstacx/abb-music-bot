@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "ISC",
   "scripts": {
-    "start": "node ./build/index.js",
+    "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
     "build": "rimraf ./build && npx tsc",
     "register": "ts-node ./src/interactions.ts register",

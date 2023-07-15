@@ -22,7 +22,7 @@ export class StartupLogger extends Service {
         const lastUpdated = `<t:${Math.floor(new Date(log.all[0].date).getTime()/1000)}:F>`;
 
         const embed = new EmbedBuilder()
-            .setColor("White")
+            .setColor("Blurple")
             .setAuthor({name:`${client.bot.user.username} is now online!`, iconURL:client.bot.user.displayAvatarURL()})
             .addFields([
                 {name:"Started up", value:bootTime},

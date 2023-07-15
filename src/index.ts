@@ -6,6 +6,6 @@ dotenv.config({path:join(__dirname, "..", ".env")});
 // -- Init console log
 console.log(`Bot is v${require("../package.json").version} -- Starting up...`);
 
-// -- Import Tapedeck client
+// -- Import client
 import { bot } from "./client/main";
 new bot();

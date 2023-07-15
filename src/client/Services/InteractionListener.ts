@@ -37,6 +37,12 @@ export class InteractionListener extends Service {
                             await interaction.run(ctx, client);
                             console.log(`💬 • Interaction used: "${ctx.commandName}" by ${ctx.user.username} (${ctx.user.id})`)
                         };
+                      /*  if(ctx.member.permissions.has(interaction.userPerms)){
+                            ctx.reply({ content: `You need the \`${interaction.userPerms}\` to run that command`})
+                        }
+                        */
+                    } else if(interaction.ownerOnly && ctx.user.id !== "788425548384174160"){
+                        ctx.reply({ content: `You are not allowed to run that command!`, ephemeral: true})
                     } else {
                         await interaction.run(ctx, client);
                         console.log(`💬 • Interaction used: "${ctx.commandName}" by ${ctx.user.username} (${ctx.user.id})`)
