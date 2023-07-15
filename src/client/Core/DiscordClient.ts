@@ -1,17 +1,28 @@
-import { Client, GatewayIntentBits, Events, Collection } from "discord.js";
+import { Client, GatewayIntentBits, Events, Collection, ActivityType } from "discord.js";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { SlashInteraction } from "../Interfaces/Interactions/SlashInteraction";
 
 export class DiscordClient extends Client {
-    interactions:Collection<string, SlashInteraction>;
+    interactions: Collection<string, SlashInteraction>;
 
     constructor() {
         super({
-            intents:[GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates]
+            intents: [
+                GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildVoiceStates,
+                GatewayIntentBits.MessageContent,
+                GatewayIntentBits.GuildMembers,
+                GatewayIntentBits.GuildMessages
+            ],
+            presence : ({
+                activities: [{ name: `your commands`, type: ActivityType.Watching }],
+                status: 'dnd',
+              }),
         });
-        
+
         this.interactions = new Collection();
+        
     }
 
     async start() {
@@ -25,7 +36,7 @@ export class DiscordClient extends Client {
     private initInteractions() {
         readdirSync(join(__dirname, "..", "..", "interactions")).forEach(folder => {
             if (folder === "shared" || folder === "temp" || folder === "slash-sub") return;
-            
+
             readdirSync(join(__dirname, "..", "..", "interactions", folder)).forEach(interaction => {
                 const file = require(join(__dirname, "..", "..", "interactions", folder, interaction));
                 console.log(`⌨️ • Interaction loaded: "${file.data.name}"`);

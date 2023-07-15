@@ -105,7 +105,7 @@ export class VoiceSession {
             if (newState.status === AudioPlayerStatus.Playing) {
                 const playable = this.player.checkPlayable();   
                 if (!playable) {
-                    const embed = errorEmbed("Something went wrong trying to play this song");
+                    const embed = errorEmbed("Something went while wrong trying to play this song");
                     return this.text.send({embeds:[embed]});
                 };
             };
@@ -246,7 +246,7 @@ export class VoiceSession {
             this.preventDisconnect = false;
         } catch (err) {
             console.error(err);
-            const embed = errorEmbed("Something went wrong playing from the queue");
+            const embed = errorEmbed("Something went wrong while playing from the queue");
             return this.text.send({embeds:[embed]});
         };
     };

@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "license": "ISC",
   "scripts": {
-    "start": "node ./build/index.js",
+    "start": "ts-node ./src/index.ts",
     "dev": "nodemon ./src/index.ts",
     "build": "rimraf ./build && npx tsc",
     "register": "ts-node ./src/interactions.ts register",
     "deregister": "ts-node ./src/interactions.ts deregister"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.1",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"

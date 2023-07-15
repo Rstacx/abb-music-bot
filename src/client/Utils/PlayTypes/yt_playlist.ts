@@ -12,7 +12,7 @@ export default async (client:bot, ctx:ChatInputCommandInteraction, connection:Vo
             await connection.batchAddToQueue(playlist, ctx.user);
             await ctx.followUp({embeds:[addedPlaylistToQueueEmbed(playlist, ctx.user, ctx.member.voice.channel)]});
         } else {
-            return client.errors.post(ctx, "Something went wrong adding this playlist to the queue");
+            return client.errors.post(ctx, "Something went wrong while adding this playlist to the queue");
         };
     } catch (err) {
         return client.errors.post(ctx, err);
