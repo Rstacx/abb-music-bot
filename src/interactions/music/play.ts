@@ -14,7 +14,7 @@ const PlayCommand:SlashInteraction = {
         .setName("play")
         .setDescription("Add a song to the queue")
         .addStringOption(option => option
-            .setName("video")
+            .setName("query")
             .setDescription("Enter a URL or search query for a song you want to queue")
             .setRequired(true))
         .addStringOption(option => option

@@ -18,7 +18,7 @@ const StopCommand:SlashInteraction = {
             return ctx.reply({content:`🎵 • **There is nothing playing in #${ctx.member.voice.channel.name}**`, ephemeral:true});
         } else {
             connection.kill();
-            return ctx.reply({content:`⏹️ • **Playback has stopped**`});
+            return ctx.reply({content:`⏹️ • **Music has stopped**`});
         }
     }   
 };
