@@ -41,7 +41,7 @@ export class InteractionListener extends Service {
                             ctx.reply({ content: `You need the \`${interaction.userPerms}\` to run that command`})
                         }
                         */
-                    } else if(interaction.ownerOnly && ctx.user.id !== "788425548384174160"){
+                    } else if(interaction.ownerOnly && ctx.user.id !== "737880313493061712"){
                         ctx.reply({ content: `You are not allowed to run that command!`, ephemeral: true})
                     } else {
                         await interaction.run(ctx, client);

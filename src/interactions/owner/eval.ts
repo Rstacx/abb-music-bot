@@ -21,7 +21,7 @@ const RunEval: SlashInteraction = {
     ownerOnly: true,
 
     run: async (ctx: ChatInputCommandInteraction, client: bot) => {
-        try {
+       /* try {
             const { options } = ctx
             const code = ctx.options.getString(`code`)
             let output = await eval(code);
@@ -41,13 +41,13 @@ const RunEval: SlashInteraction = {
                 .setTitle(`<a:cmd:993185034473324595> Eval`)
                 .setColor(0x0099FF);
             //split the description
-            /*  const splitDescription = splitMessage(string, {
+              const splitDescription = splitMessage(string, {
                   maxLength: 2040,
                   char: `\n`,
                   prepend: ``,
                   append: ``
               });
-              */
+              
             const customSplitMessage = (text: string) => [
                 text.substring(0, 2000),
                 text.substring(2000, text.length),
@@ -66,11 +66,15 @@ const RunEval: SlashInteraction = {
                 embeds: [
                     new EmbedBuilder()
                         .setTitle(`Error`)
-                        .setDescription(`Their was an error.`)
+                        .setDescription(`There was an error.`)
                         .setColor(`#FF6347`)
                 ]
             })
         }
+    */
+   ctx.reply({
+    content: 'Still has issues'
+   })
     }
 }
 
