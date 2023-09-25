@@ -23,9 +23,9 @@ const VolumeCommand:SlashInteraction = {
 
         const volumeRequest = connection.setVolume(ctx.options.getNumber("volume"));
         if (!volumeRequest) {
-            return ctx.reply({content:`🔊 • **Invalid volume value entered**`, ephemeral:true})
+            return ctx.reply({content:`<:volume:1129851138951356457> • **Invalid volume value entered**`, ephemeral:true})
         } else {
-            return ctx.reply({content:`🔊 • **Set the volume to \`${volumeRequest}\`**`});
+            return ctx.reply({content:`<:volume:1129851138951356457> • **Set the volume to \`${volumeRequest}\`**`});
         }
     }
 };
