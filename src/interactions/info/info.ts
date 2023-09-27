@@ -2,11 +2,8 @@ import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder, Channel
 import { SlashInteraction } from "../../client/Interfaces/Interactions/SlashInteraction";
 import { bot } from "../../client/main";
 const version = require("discord.js").version
-const m = require("moment-duration-format");
 import os from 'os';
 const cpustat = require('cpu-stat');
-import ms from 'ms';
-//import moment from 'moment';
 import * as moment from 'moment';
 const { mem, cpu } = require('node-os-utils');
 import simpleGit from "simple-git";
@@ -34,11 +31,9 @@ const info: SlashInteraction = {
             const users = client.bot.users.cache.size.toLocaleString()
             const channels = client.bot.channels.cache.size.toLocaleString()
             const node = process.version
-            const { totalMemMb, usedMemMb } = await mem.info()
             const latency = (Date.now() - ctx.createdTimestamp) / 60;
             let lat = Math.round(latency)
             const uptimeDuration = moment.duration(client.bot.uptime);
-            const uptime = moment.utc(uptimeDuration.asMilliseconds()).format("D [days], H [hrs], m [mins], s [secs]");
             const packageFile = require(join(__dirname, "..", "..", "..", "package.json"));
             const repo = simpleGit();
             const log = await repo.log();
@@ -46,23 +41,24 @@ const info: SlashInteraction = {
 
             ctx.reply({
                 embeds: [new EmbedBuilder()
-                    .setTitle(`Aziel's Stats!`)
+                    .setTitle(`My Stats!`)
                     .setColor(0x0099FF)
-                    .setDescription(`A bot coded by [@Rstacx](https://github.com/Rstacx) and [@Siprizer](https://github.com/Siprizer)`)
+                    .setDescription(`Credits to [**@Rstacx**](https://github.com/Rstacx) and [**@Siprizer**](https://github.com/Siprizer) for developing me!`)
                     .addFields(
-                        { name: `Message Latency`, value: `\`${lat} MS\``, inline: false },
-                        { name: `Memory Used`, value: `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB\``, inline: false },
-                        { name: `Websocket Latency`, value: `\`${client.bot.ws.ping}MS\``, inline: false },
+                        { name: `Message Latency`, value: `${lat}ms`, inline: true },
+                        { name: `Websocket Latency`, value: `${client.bot.ws.ping}ms`, inline: true },
                         { name: `Repository Info`, value: `> Name: \`${packageFile.name}\` \n> Version: \`v${packageFile.version}-${log.all[0].hash.substring(0, 6)}\`` },
                         { name: `Last Update`, value: lastUpdated, inline: true },
                         { name: "Created on", value: `\`${client.bot.user.createdAt}\``, inline: false },
                         { name: "Guilds", value: `\`${guilds} guilds\``, inline: false },
                         { name: "Users", value: `\`${users} users\``, inline: false },
-                        { name: "Channels", value: `\`${channels} channels\``, inline: false },
+
+                        { name: "Channels", value: `\`${channels} channels\``, inline: false  },
                         { name: "Discord.js Version", value: `\`v${version}\``, inline: false },
                         { name: "Node.js Version", value: `\`${node}\``, inline: false },
                         { name: "CPU", value: `\`\`\`${os.cpus()[0].model}\`\`\``, inline: false },
                         { name: "Cores", value: `\`\`\`${cores}\`\`\``, inline: false },
+                        { name: `Memory Used`, value: `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB\``, inline: false },
                         { name: "Platform", value: `\`\`\`${os.platform()}\`\`\``, inline: false }
                     )
                     .setThumbnail(client.bot.user.displayAvatarURL({ extension: 'jpg' }))
