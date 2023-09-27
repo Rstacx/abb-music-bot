@@ -22,19 +22,19 @@ const CheckAvatar: SlashInteraction = {
             embeds: [new EmbedBuilder()
                 .setTitle(`${user.username}'s avatar`)
                 .addFields({
-                    name: "<:avatar:1007290615479930880> PNG",
-                    value: `[\`Download\`](${user.displayAvatarURL({ extension: "png" })})`,
+                    name: `<:avatar:1007290615479930880> PNG`,
+                    value: `[**\`Download\`**](${user.displayAvatarURL({ extension: "png" })})`,
                     inline: true
                 }, {
-                    name: "<:avatar:1007290615479930880> JPEG",
-                    value: `[\`Download\`](${user.displayAvatarURL({ extension: "jpg" })})`,
+                    name: `<:avatar:1007290615479930880> JPEG`,
+                    value: `[**\`Download\`**](${user.displayAvatarURL({ extension: "jpg" })})`,
                     inline: true
                 }, {
-                    name: "<:avatar:1007290615479930880> WEBP",
-                    value: `[\`Download\`](${user.displayAvatarURL({ extension: "webp" })})`,
+                    name: `<:avatar:1007290615479930880> WEBP`,
+                    value: `[**\`Download\`**](${user.displayAvatarURL({ extension: "webp" })})`,
                     inline: true
                 })
-                .setColor('Blurple')
+                .setColor(0x0099FF)
                 .setImage(user.displayAvatarURL({ size: 4096 }))
                 .setTimestamp()]
         });

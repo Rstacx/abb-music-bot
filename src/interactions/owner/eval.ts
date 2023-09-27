@@ -21,7 +21,7 @@ const RunEval: SlashInteraction = {
     ownerOnly: true,
 
     run: async (ctx: ChatInputCommandInteraction, client: bot) => {
-       /* try {
+        try {
             const { options } = ctx
             const code = ctx.options.getString(`code`)
             let output = await eval(code);
@@ -32,29 +32,12 @@ const RunEval: SlashInteraction = {
 
             output = inspect(output, { depth: 0, maxArrayLength: null });
 
-            output = output.replace(filter, "\\\\Are you that down bad to get my token, get a life and stop being a failure.\\\\");
+            output = output.replace(filter, "\\\\Are you that down bad to get my token?\\\\");
             let string = output;
-            //if the token is included return error
-            //if (string.includes(client.token)) return console.log(`ERROR NO TOKEN GRABBING ;)`.dim);
-            //define queueembed
             let evalEmbed = new EmbedBuilder()
                 .setTitle(`<a:cmd:993185034473324595> Eval`)
                 .setColor(0x0099FF);
-            //split the description
-              const splitDescription = splitMessage(string, {
-                  maxLength: 2040,
-                  char: `\n`,
-                  prepend: ``,
-                  append: ``
-              });
-              
-            const customSplitMessage = (text: string) => [
-                text.substring(0, 2000),
-                text.substring(2000, text.length),
-            ];
-            //(over) write embed description
-            evalEmbed.setDescription(`\`\`\`` + customSplitMessage(string)[0] + `\`\`\``);
-            //send embed
+            evalEmbed.setDescription(`\`\`\`` + string + `\`\`\``);
             ctx.reply({
                 embeds: [evalEmbed]
             });
@@ -71,11 +54,13 @@ const RunEval: SlashInteraction = {
                 ]
             })
         }
-    */
-   ctx.reply({
-    content: 'Still has issues'
-   })
+        /*
+                ctx.reply({
+                    content: 'Still has issues'
+                })
+                */
     }
+
 }
 
 module.exports = RunEval;
