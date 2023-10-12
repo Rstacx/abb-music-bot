@@ -1,5 +1,5 @@
 # Abb
-Hi, I'm Abb ( Aziel, but better). Abb is the v14 version of [Aziel](https://github.com/Aziel). I changed the name due to another bot having the same one. Abb is a work in progress, and any help or contributions you can give are greatly appreciated.
+Hi, I'm Abb ( Aziel, but better). Abb is the v14 version of [Aziel](https://github.com/Aziel). Abb is a work in progress, and any help or contributions you can give are greatly appreciated.
 
 ### Plan
 
