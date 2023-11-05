@@ -1,22 +1,24 @@
 import { TextChannel, User, VoiceChannel } from "discord.js";
 import { Song } from "../../Interfaces/VoiceSession/Song";
-import { 
-    YouTubeStream, 
-    SoundCloudStream, 
-    video_basic_info, 
-    InfoData, 
-    YouTubePlayList, 
-    stream } from "play-dl";
-import { 
-    AudioResource, 
-    VoiceConnection, 
-    joinVoiceChannel, 
-    AudioPlayer, 
-    createAudioPlayer, 
-    NoSubscriberBehavior, 
+import {
+    YouTubeStream,
+    SoundCloudStream,
+    video_basic_info,
+    InfoData,
+    YouTubePlayList,
+    stream
+} from "play-dl";
+import {
+    AudioResource,
+    VoiceConnection,
+    joinVoiceChannel,
+    AudioPlayer,
+    createAudioPlayer,
+    NoSubscriberBehavior,
     AudioPlayerStatus,
     VoiceConnectionStatus,
-    createAudioResource } from "@discordjs/voice";
+    createAudioResource
+} from "@discordjs/voice";
 import { errorEmbed, nowPlayingEmbed } from "../../Utils/VoiceSessionEmbeds"
 import { bot } from "../../main";
 import { AddQueueOptions } from "../../Interfaces/VoiceSession/AddQueueOptions";
@@ -24,23 +26,23 @@ import formatDuration from "format-duration";
 import { SongDuration } from "../../Interfaces/VoiceSession/SongDuration";
 
 export class VoiceSession {
-    private client:bot;
-    private voice:VoiceChannel;
-    private text:TextChannel;
-    private queue:Array<Song>;
-    private preventDisconnect:boolean;
-    private alreadyDestroyed:boolean;
-    private stream:YouTubeStream|SoundCloudStream;
-    private resource:AudioResource<any>;
-    private nowPlaying:Song;
-    private loopTrack:boolean;
-    private loopQueue:boolean;
-    private volume:number;
-    private timeout:any;
-    private connection:VoiceConnection;
-    private player:AudioPlayer;
+    private client: bot;
+    private voice: VoiceChannel;
+    private text: TextChannel;
+    private queue: Array<Song>;
+    private preventDisconnect: boolean;
+    private alreadyDestroyed: boolean;
+    private stream: YouTubeStream | SoundCloudStream;
+    private resource: AudioResource<any>;
+    private nowPlaying: Song;
+    private loopTrack: boolean;
+    private loopQueue: boolean;
+    private volume: number;
+    private timeout: any;
+    private connection: VoiceConnection;
+    private player: AudioPlayer;
 
-    constructor(client:bot, voiceChannel:VoiceChannel, textChannel:TextChannel) {
+    constructor(client: bot, voiceChannel: VoiceChannel, textChannel: TextChannel) {
         this.client = client;
         this.voice = voiceChannel;
         this.text = textChannel;
@@ -66,16 +68,16 @@ export class VoiceSession {
         // -- Create voice channel connection
         console.log(`🎵 • Connecting to #${this.voice.name} (${this.voice.guild.name})`);
         this.connection = joinVoiceChannel({
-            channelId:this.voice.id,
-            guildId:this.voice.guild.id,
-            adapterCreator:this.voice.guild.voiceAdapterCreator
+            channelId: this.voice.id,
+            guildId: this.voice.guild.id,
+            adapterCreator: this.voice.guild.voiceAdapterCreator
         });
 
         // -- Create audio player for connection to subscribe to
         console.log(`🎵 • Starting audio player for #${this.voice.name} (${this.voice.guild.name})`);
         this.player = createAudioPlayer({
-            behaviors:{
-                noSubscriber:NoSubscriberBehavior.Stop
+            behaviors: {
+                noSubscriber: NoSubscriberBehavior.Stop
             }
         });
         this.connection.subscribe(this.player);
@@ -89,7 +91,7 @@ export class VoiceSession {
 
             if (newState.status === AudioPlayerStatus.Idle && oldState.status !== AudioPlayerStatus.Idle) {
                 console.log(`⏸ • Audio player in #${this.voice.name} (${this.voice.guild.name}) is now idle`)
-                
+
                 if (this.loopTrack && this.nowPlaying || this.loopQueue && this.nowPlaying || this.queue.length >= 1) {
                     this.playFromQueue();
                 } else {
@@ -100,13 +102,13 @@ export class VoiceSession {
                         }, 120000);
                     };
                 };
-            };            
+            };
 
             if (newState.status === AudioPlayerStatus.Playing) {
-                const playable = this.player.checkPlayable();   
+                const playable = this.player.checkPlayable();
                 if (!playable) {
                     const embed = errorEmbed("Something went while wrong trying to play this song");
-                    return this.text.send({embeds:[embed]});
+                    return this.text.send({ embeds: [embed] });
                 };
             };
         });
@@ -114,7 +116,7 @@ export class VoiceSession {
         this.player.on("error", err => {
             console.error(err);
             const embed = errorEmbed(err);
-            return this.text.send({embeds:[embed]});
+            return this.text.send({ embeds: [embed] });
         });
 
         this.connection.on(VoiceConnectionStatus.Disconnected, () => {
@@ -138,7 +140,7 @@ export class VoiceSession {
     };
 
     // -- Add a song to the queue
-    public addToQueue(url:string, user:User, options?:AddQueueOptions) {
+    public addToQueue(url: string, user: User, options?: AddQueueOptions) {
         if (this.timeout) {
             clearTimeout(this.timeout);
             this.timeout = null;
@@ -147,10 +149,10 @@ export class VoiceSession {
 
         return new Promise<Song>(async (resolve, reject) => {
             try {
-                const info:InfoData = await video_basic_info(url);
-                const song:Song = {
-                    video:info.video_details,
-                    user:user.username
+                const info: InfoData = await video_basic_info(url);
+                const song: Song = {
+                    video: info.video_details,
+                    user: user.username
                 };
 
                 // -- If play top is requested, place song at top of queue. Else place at end of queue.
@@ -161,7 +163,7 @@ export class VoiceSession {
                 };
 
                 if (options?.playTop || this.preventDisconnect) this.playFromQueue();
-                
+
                 console.log(`🎵 • Added ${song.video.title} to queue in #${this.voice.name} (${this.voice.guild.name})`);
 
                 return resolve(song);
@@ -172,7 +174,7 @@ export class VoiceSession {
     };
 
     // -- Batch add to queue
-    public batchAddToQueue(playlist:YouTubePlayList, user:User) {
+    public batchAddToQueue(playlist: YouTubePlayList, user: User) {
         if (this.timeout) {
             clearTimeout(this.timeout);
             this.timeout = null;
@@ -186,13 +188,13 @@ export class VoiceSession {
 
                 videos.map(video => {
                     i++;
-                    const song:Song = {
-                        video:video,
-                        user:user.username
+                    const song: Song = {
+                        video: video,
+                        user: user.username
                     };
                     this.queue.push(song);
 
-                    if (i > videos.length-1) {
+                    if (i > videos.length - 1) {
                         console.log(`🎵 • Added playlist to queue (${videos.length} songs) in #${this.voice.name} (${this.voice.guild.name})`);
                         if (this.preventDisconnect) this.playFromQueue();
                         return resolve(true);
@@ -217,7 +219,7 @@ export class VoiceSession {
     // -- Play from queue
     public async playFromQueue() {
         try {
-            let song:Song;
+            let song: Song;
 
             if (this.loopTrack) {
                 song = this.nowPlaying;
@@ -233,8 +235,8 @@ export class VoiceSession {
             console.log(`🎵 • Getting stream from YouTube`);
             this.stream = await stream(song.video.url);
             this.resource = createAudioResource(this.stream.stream, {
-                inputType:this.stream.type,
-                inlineVolume:true
+                inputType: this.stream.type,
+                inlineVolume: true
             });
             this.resource.volume.setVolume(this.volume);
 
@@ -247,14 +249,14 @@ export class VoiceSession {
         } catch (err) {
             console.error(err);
             const embed = errorEmbed("Something went wrong while playing from the queue");
-            return this.text.send({embeds:[embed]});
+            return this.text.send({ embeds: [embed] });
         };
     };
 
     // -- Post the currently playing song into the text channel
     public postNowPlaying() {
         const embed = nowPlayingEmbed(this.nowPlaying, this.voice);
-        this.text.send({embeds:[embed]});
+        this.text.send({ embeds: [embed] });
     };
 
     // -- Pause active playback
@@ -319,19 +321,19 @@ export class VoiceSession {
         return this.queue;
     };
     // -- Private: Shuffle array function
-    private shuffleArray(array:Array<any>) {
-        let currentIndex = array.length,  randomIndex;
+    private shuffleArray(array: Array<any>) {
+        let currentIndex = array.length, randomIndex;
         while (currentIndex != 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
             [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
+                array[randomIndex], array[currentIndex]];
         };
         return array;
     };
 
     // -- Set the playback volume
-    public setVolume(vol:number) {
+    public setVolume(vol: number) {
         if (vol > 1 || vol < 0.1) return false;
         this.volume = vol;
 
@@ -353,17 +355,17 @@ export class VoiceSession {
             const playbackMs = this.player.state.playbackDuration;
             const totalMs = this.nowPlaying.video.durationInSec;
             const playback = formatDuration(playbackMs);
-            const total = formatDuration(totalMs*1000);
+            const total = formatDuration(totalMs * 1000);
 
-            const songDuration:SongDuration = {
-                playback:playback,
-                total:total
+            const songDuration: SongDuration = {
+                playback: playback,
+                total: total
             };
             return songDuration;
         } else {
-            const songDuration:SongDuration = {
-                playback:"00:00",
-                total:"00:00"
+            const songDuration: SongDuration = {
+                playback: "00:00",
+                total: "00:00"
             }
             return songDuration;
         };

@@ -55,7 +55,7 @@ const Userinfo: SlashInteraction = {
         const targetId = ctx.options.getUser("user") || ctx.user
         const user = await client.bot.users.fetch(targetId);
         await ctx.reply({
-           content:"This is test"
+            content: "This is test"
         });
     }
 }

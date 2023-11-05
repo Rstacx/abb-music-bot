@@ -15,14 +15,14 @@ export class DiscordClient extends Client {
                 GatewayIntentBits.GuildMembers,
                 GatewayIntentBits.GuildMessages
             ],
-            presence : ({
+            presence: ({
                 activities: [{ name: `your commands`, type: ActivityType.Watching }],
                 status: 'dnd',
-              }),
+            }),
         });
 
         this.interactions = new Collection();
-        
+
     }
 
     async start() {

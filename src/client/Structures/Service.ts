@@ -1,5 +1,5 @@
 export class Service {
-    constructor(name:string) {
+    constructor(name: string) {
         console.log(`⚙️ • Service active: "${name}"`);
     };
 }

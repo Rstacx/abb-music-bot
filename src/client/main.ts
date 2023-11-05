@@ -5,9 +5,9 @@ import { ErrorHandler } from "./Core/ErrorHandler";
 import { ServiceManager } from "./Core/ServiceManager";
 
 export class bot {
-    public bot:DiscordClient;
-    public services:ServiceManager;
-    public errors:ErrorHandler;
+    public bot: DiscordClient;
+    public services: ServiceManager;
+    public errors: ErrorHandler;
 
     constructor() {
         this.bot = new DiscordClient();

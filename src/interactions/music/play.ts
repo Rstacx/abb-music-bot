@@ -9,8 +9,8 @@ import yt_video from "../../client/Utils/PlayTypes/yt_video";
 import yt_search from "../../client/Utils/PlayTypes/yt_search";
 import yt_playlist from "../../client/Utils/PlayTypes/yt_playlist";
 
-const PlayCommand:SlashInteraction = {
-    data:new SlashCommandBuilder()
+const PlayCommand: SlashInteraction = {
+    data: new SlashCommandBuilder()
         .setName("play")
         .setDescription("Add a song to the queue")
         .addStringOption(option => option
@@ -21,28 +21,28 @@ const PlayCommand:SlashInteraction = {
             .setName("queue_option")
             .setDescription("How do you want to queue this song?")
             .addChoices(
-                {name:"Add to the top of the queue", value:"PLAYTOP"},
-                {name:"Skip current song and play now", value:"PLAYSKIP"}
+                { name: "Add to the top of the queue", value: "PLAYTOP" },
+                { name: "Skip current song and play now", value: "PLAYSKIP" }
             )),
-    requireVc:true,
-    ownerOnly:false,
+    requireVc: true,
+    ownerOnly: false,
 
-    run:async (ctx:ChatInputCommandInteraction, client:bot) => {
+    run: async (ctx: ChatInputCommandInteraction, client: bot) => {
         if (!ctx.inCachedGuild() || ctx.member.voice.channel.type !== ChannelType.GuildVoice || ctx.channel.type !== ChannelType.GuildText) return;
-        
+
         const connection = client.services.audioSession.fetch(ctx.member.voice.channel, ctx.channel);
         if (!connection) {
-            return ctx.reply({content:`❌ • **Another channel in this server is already using ${client.bot.user.username}**`, ephemeral:true});
+            return ctx.reply({ content: `❌ • **Another channel in this server is already using ${client.bot.user.username}**`, ephemeral: true });
         };
 
         await ctx.deferReply();
 
         const query = ctx.options.getString("video");
         const queueOption = ctx.options.getString("queue_option");
-        
-        const options:AddQueueOptions = {
-            playTop:false,
-            playSkip:false
+
+        const options: AddQueueOptions = {
+            playTop: false,
+            playSkip: false
         };
 
         if (queueOption === "PLAYTOP") options.playTop = true;
@@ -53,7 +53,7 @@ const PlayCommand:SlashInteraction = {
 
         const type = await validate(query);
 
-        switch(type) {
+        switch (type) {
             case "yt_video":
                 yt_video(client, ctx, connection, query, options);
                 break;
@@ -64,7 +64,7 @@ const PlayCommand:SlashInteraction = {
                 yt_search(client, ctx, connection, query, options);
                 break;
             default:
-                await ctx.followUp({content:`❌ • **This URL wasn't recognised. Only YouTube video/playlist URLs are accepted.**`});
+                await ctx.followUp({ content: `❌ • **This URL wasn't recognised. Only YouTube video/playlist URLs are accepted.**` });
         }
     }
 };

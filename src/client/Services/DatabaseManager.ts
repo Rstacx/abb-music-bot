@@ -4,8 +4,8 @@ import { join } from "path";
 import { existsSync, mkdirSync } from "fs";
 
 export class DatabaseManager extends Service {
-    public sequelize:Sequelize;
-    
+    public sequelize: Sequelize;
+
     constructor() {
         super("Database Manager");
 
@@ -15,9 +15,9 @@ export class DatabaseManager extends Service {
         }
 
         this.sequelize = new Sequelize({
-            dialect:"sqlite",
-            storage:join(__dirname, "..", "..", "..", "db", "mugi.sqlite"),
-            logging:msg => console.log(`🔗 DB • ${msg}`)
+            dialect: "sqlite",
+            storage: join(__dirname, "..", "..", "..", "db", "mugi.sqlite"),
+            logging: msg => console.log(`🔗 DB • ${msg}`)
         });
     };
 };
