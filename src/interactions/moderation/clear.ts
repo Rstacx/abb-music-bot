@@ -26,6 +26,7 @@ const Clearcmd: SlashInteraction = {
                 embeds: [
                     new EmbedBuilder()
                         .setDescription('Complete')
+                        .setFooter({text: `Only messages sent in the last 14 days are deleted`})
                 ]
             });
 

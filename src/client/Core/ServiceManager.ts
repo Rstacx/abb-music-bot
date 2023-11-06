@@ -10,14 +10,14 @@ export class ServiceManager {
         this.client = client;
     };
 
-    public db: DatabaseManager;
+  //  public db: DatabaseManager;
     public audioSession: SessionManager;
 
     init() {
         // -- Public Services
         // this.db = new DatabaseManager();
         this.audioSession = new SessionManager(this.client);
-
+        new DatabaseManager(this.client);
         // -- Private services
         new StartupLogger(this.client);
         // Discord interactions event manager -- start last!!
