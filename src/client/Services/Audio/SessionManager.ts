@@ -4,17 +4,17 @@ import { VoiceSession } from "./VoiceSession";
 import { bot } from "../../main";
 
 export class SessionManager extends Service {
-    private client:bot;
-    private sessions:Map<string, VoiceSession>; // TODO: change to voice session
+    private client: bot;
+    private sessions: Map<string, VoiceSession>; // TODO: change to voice session
 
-    constructor(client:bot) {
+    constructor(client: bot) {
         super("Audio session manager");
         this.client = client;
-        
+
         this.sessions = new Map();
     };
 
-    public fetch(voiceChannel:VoiceChannel, textChannel:TextChannel, check?:boolean) {
+    public fetch(voiceChannel: VoiceChannel, textChannel: TextChannel, check?: boolean) {
         if (this.sessions.has(voiceChannel.guild.id)) {
             const connection = this.sessions.get(voiceChannel.guild.id);
             if (voiceChannel.id !== connection.getVoiceChannelId()) return false;
@@ -27,7 +27,7 @@ export class SessionManager extends Service {
         };
     };
 
-    public destroy(id:string) {
+    public destroy(id: string) {
         if (this.sessions.has(id)) {
             this.sessions.delete(id);
         };

@@ -1,4 +1,4 @@
 export interface SongDuration {
-    playback:string,
-    total:string
+    playback: string,
+    total: string
 }

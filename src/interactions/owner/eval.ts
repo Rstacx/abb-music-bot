@@ -32,7 +32,7 @@ const RunEval: SlashInteraction = {
 
             output = inspect(output, { depth: 0, maxArrayLength: null });
 
-            output = output.replace(filter, "\\\\Are you that down bad to get my token?\\\\");
+            output = output.replace(filter, "\\\\No Token for you (✿◡‿◡)\\\\");
             let string = output;
             let evalEmbed = new EmbedBuilder()
                 .setTitle(`<a:cmd:993185034473324595> Eval`)

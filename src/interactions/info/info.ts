@@ -53,7 +53,7 @@ const info: SlashInteraction = {
                         { name: "Guilds", value: `\`${guilds} guilds\``, inline: false },
                         { name: "Users", value: `\`${users} users\``, inline: false },
 
-                        { name: "Channels", value: `\`${channels} channels\``, inline: false  },
+                        { name: "Channels", value: `\`${channels} channels\``, inline: false },
                         { name: "Discord.js Version", value: `\`v${version}\``, inline: false },
                         { name: "Node.js Version", value: `\`${node}\``, inline: false },
                         { name: "CPU", value: `\`\`\`${os.cpus()[0].model}\`\`\``, inline: false },

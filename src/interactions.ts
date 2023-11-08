@@ -15,7 +15,7 @@ if (process.argv[2] === "register") {
         
         readdirSync(join(__dirname, "interactions", folder)).forEach(interaction => {
             const file = require(join(__dirname, "interactions", folder, interaction));
-            console.log(`⌨️ • Interaction loaded: "${file.data.name}"`);
+            console.log(`💬 • Interaction loaded: "${file.data.name}"`);
             interactions.push(file.data.toJSON());
         });
     });
@@ -31,7 +31,7 @@ if (process.argv[2] === "register") {
                 {body:interactions}
             )
 
-            console.log(`Deployed ${interactions.length} interactions ${(process.env.DEBUG_GUILD) ? 'in guild' + process.env.DEBUG_GUILD : "globally"} successfully!`);
+            console.log(`Deployed ${interactions.length} interactions ${(process.env.DEBUG_GUILD) ? 'in guild:' + process.env.DEBUG_GUILD : "globally"} successfully!`);
         } catch (err) {
             console.error(err);
         };

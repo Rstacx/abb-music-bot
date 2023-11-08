@@ -15,10 +15,11 @@ const CheckAvatar: SlashInteraction = {
     ownerOnly: false,
 
     run: async (ctx: ChatInputCommandInteraction, client: bot) => {
-      
+
         const targetId = ctx.options.getUser("user") || ctx.user
         const user = await client.bot.users.fetch(targetId);
-       await ctx.reply({
+        try{
+        await ctx.reply({
             embeds: [new EmbedBuilder()
                 .setTitle(`${user.username}'s avatar`)
                 .addFields({
@@ -38,6 +39,9 @@ const CheckAvatar: SlashInteraction = {
                 .setImage(user.displayAvatarURL({ size: 4096 }))
                 .setTimestamp()]
         });
+    }catch{
+        ctx.reply({ content: `That user either doesn't exist or I don't share a guild with them!`})
+    }
     }
 }
 

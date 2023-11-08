@@ -1,4 +1,4 @@
 export interface AddQueueOptions {
-    playTop:boolean;
-    playSkip:boolean;
+    playTop: boolean;
+    playSkip: boolean;
 }
