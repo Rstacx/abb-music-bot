@@ -27,7 +27,6 @@
     "libsodium-wrappers": "^0.7.11",
     "mathjs": "^11.11.1",
     "moment-duration-format": "^2.3.2",
-    "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
     "node-os-utils": "^1.3.7",
     "opusscript": "^0.0.8",
